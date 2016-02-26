@@ -88,7 +88,7 @@ angular.module('schemaForm').config(
 
                 // select items changed
                 $scope.$parent.$watch('form.schema.items', function () {
-                    if ($scope.$parent.model[getModelKey()]) {
+                    if ($scope.$parent.model && $scope.$parent.model[getModelKey()]) {
                         doSelect($scope.$parent.model[getModelKey()]);
                     }
                 }, true);
