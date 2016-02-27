@@ -57,8 +57,8 @@ angular.module('schemaForm').config(
             replace: true,
             controller: ['$scope', function ($scope) {
 
-
                 var doSelect = function (val) {
+                    $scope.$parent.select_model.selected = undefined;
                     angular.forEach($scope.$parent.form.schema.items, function ($item) {
                         if ($item.value == val) {
                             $scope.$parent.select_model.selected = $item;
@@ -92,7 +92,6 @@ angular.module('schemaForm').config(
                         doSelect($scope.$parent.model[getModelKey()]);
                     }
                 }, true);
-
 
                 $scope.$parent.$watch('select_model.selected', function () {
                     if ($scope.$parent.select_model.selected != undefined) {
