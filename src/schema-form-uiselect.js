@@ -116,6 +116,50 @@ angular.module('schemaForm').config(
                     list = [];
                     sfSelect($scope.$parent.form.key, $scope.$parent.model, list);
                 }
+
+                var doSelect = function (selectedItems) {
+
+                    var current = [];
+                    angular.forEach($scope.$parent.form.select_models, function (selectedItem) {
+                        current.push(selectedItem.value);
+                    });
+
+                    angular.forEach($scope.$parent.form.schema.items, function ($item) {
+                        angular.forEach(selectedItems, function (selectedItem) {
+                            if ($item.value == selectedItem && current.indexOf(selectedItem) === -1) {
+                                $scope.$parent.form.select_models.push($item);
+                            }
+                        });
+                    });
+                };
+
+                var getModelKey = function () {
+
+                    var key = $scope.$parent.form.key;
+
+                    // Redact part of the key, used in arrays
+                    // KISS keyRedaction is a number.
+                    if ($scope.$parent.state && $scope.$parent.state.keyRedaction) {
+                        key = key.slice($scope.$parent.state.keyRedaction);
+                    } else if (Array.isArray(key)) {
+                        key = key[0];
+                    }
+
+                    return key;
+                };
+
+                // model value changed in outside
+                $scope.$parent.$watch('model.$$value$$'.replace('$$value$$', getModelKey()), function (val) {
+                    doSelect(val);
+                });
+
+                // select items changed
+                $scope.$parent.$watch('form.schema.items', function (val) {
+                    if ($scope.$parent.model && $scope.$parent.model[getModelKey()]) {
+                        doSelect($scope.$parent.model[getModelKey()]);
+                    }
+                }, true);
+
                 $scope.$parent.$watch('form.select_models', function () {
                     if ($scope.$parent.form.select_models.length == 0) {
                         $scope.$parent.insideModel = $scope.$parent.$$value$$;
