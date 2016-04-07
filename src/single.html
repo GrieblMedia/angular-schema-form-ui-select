@@ -1,7 +1,7 @@
 <div class="form-group" ng-class="{'has-error': hasError(), 'has-success': hasSuccess(), 'has-feedback': form.feedback !== false}" ng-init="select_models=(form.schema.items | where : {value: $$value$$})">
   <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
   <div class="form-group" ng-init="select_model.selected=select_models[0]">
-    <div class="input-group input-group-sm">
+    <div class="input-group">
       <ui-select ng-model="select_model.selected" ng-controller="UiSelectController"  ng-if="!(form.options.tagging||false)" theme="bootstrap" ng-disabled="form.disabled" on-select="$$value$$=$item.value" class="{{form.options.uiClass}}">
         <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">{{select_model.selected.label}}</ui-select-match>
         <ui-select-choices class="ui-select-choices" refresh="fetchResult(form.schema, form.options, $select.search)"
