@@ -94,10 +94,8 @@ angular.module('schemaForm').config(
                 }, true);
 
                 $scope.$parent.$watch('select_model.selected', function () {
-                    if ($scope.$parent.select_model.selected != undefined) {
-                        $scope.$parent.insideModel = $scope.$parent.select_model.selected.value;
-                        $scope.$parent.ngModel.$setViewValue($scope.$parent.select_model.selected.value);
-                    }
+                    $scope.$parent.insideModel = $scope.$parent.select_model.selected ? $scope.$parent.select_model.selected.value : undefined;
+                    $scope.$parent.ngModel.$setViewValue($scope.$parent.select_model.selected ? $scope.$parent.select_model.selected.value : undefined);
                 });
             }],
         };
