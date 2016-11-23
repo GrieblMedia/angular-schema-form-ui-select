@@ -57,13 +57,35 @@ angular.module('schemaForm').config(
             replace: true,
             controller: ['$scope', function ($scope) {
 
-                var doSelect = function (val) {
-                    $scope.$parent.select_model.selected = undefined;
-                    angular.forEach($scope.$parent.form.schema.items, function ($item) {
-                        if ($item.value == val) {
-                            $scope.$parent.select_model.selected = $item;
+                /**
+                 * Selects active option when:
+                 * a) model value is changed
+                 * b) dropdown options are changed
+                 *
+                 * @param {string} val Selected value
+                 * @param {bool} doResetIfNotFound Boolean - if true and value not found in options list dropdown value is reset
+                 */
+                var doSelect = function (val, doResetIfNotFound) {
+
+                    if (!val) {
+                        // value not passed (or empty value passed) - reset dropdown value
+                        $scope.$parent.select_model.selected = undefined;
+                    } else {
+
+                        // value passed, check if it is available in the options list, if so - select it
+                        var exists = false;
+                        angular.forEach($scope.$parent.form.schema.items, function ($item) {
+                            if ($item.value == val) {
+                                $scope.$parent.select_model.selected = $item;
+                                exists = true;
+                            }
+                        });
+
+                        // value is not found in options list and flag (that dropdown should be reset) is passed, reset value
+                        if (!exists && doResetIfNotFound) {
+                            $scope.$parent.select_model.selected = undefined;
                         }
-                    });
+                    }
                 };
 
                 var getModelKey = function () {
@@ -83,13 +105,13 @@ angular.module('schemaForm').config(
 
                 // model value changed in outside
                 $scope.$parent.$watch('model.$$value$$'.replace('$$value$$', getModelKey()), function (val) {
-                    doSelect(val);
+                    doSelect(val, false);
                 });
 
                 // select items changed
                 $scope.$parent.$watch('form.schema.items', function () {
                     if ($scope.$parent.model && $scope.$parent.model[getModelKey()]) {
-                        doSelect($scope.$parent.model[getModelKey()]);
+                        doSelect($scope.$parent.model[getModelKey()], true);
                     }
                 }, true);
 
