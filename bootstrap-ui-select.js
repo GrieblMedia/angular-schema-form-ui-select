@@ -141,14 +141,15 @@ angular.module('schemaForm').config(
 
                 var doSelect = function (selectedItems) {
 
-                    var current = [];
-                    angular.forEach($scope.$parent.form.select_models, function (selectedItem) {
-                        current.push(selectedItem.value);
-                    });
+                    // clean selected options
+                    while ($scope.$parent.form.select_models.length) {
+                        $scope.$parent.form.select_models.pop();
+                    }
 
+                    // reselect values
                     angular.forEach($scope.$parent.form.schema.items, function ($item) {
                         angular.forEach(selectedItems, function (selectedItem) {
-                            if ($item.value == selectedItem && current.indexOf(selectedItem) === -1) {
+                            if ($item.value == selectedItem) {
                                 $scope.$parent.form.select_models.push($item);
                             }
                         });
