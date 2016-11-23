@@ -69,7 +69,7 @@ angular.module('schemaForm').config(
                  */
                 var doSelect = function (val, doResetIfNotFound) {
 
-                    if (!val) {
+                    if (!angular.isDefined(val)) {
                         // value not passed (or empty value passed) - reset dropdown value
                         $scope.$parent.select_model.selected = undefined;
                     } else {
