@@ -50,7 +50,7 @@ angular.module('schemaForm').config(
             schemaFormDecoratorsProvider.createDirective('uimultiselect',
                 'directives/decorators/bootstrap/uiselect/multi.html');
         }])
-    .directive("toggleSingleModel", function () {
+    .directive("toggleSingleModel", function ($timeout) {
         // some how we get this to work ...
         return {
             require: 'ngModel',
@@ -88,6 +88,11 @@ angular.module('schemaForm').config(
                             $scope.$parent.select_model.selected = undefined;
                         }
                     }
+
+                    $timeout(function () {
+                        $scope.$parent.ngModel.$setPristine();
+                        $scope.$parent.ngModel.$$parentForm.$setPristine();
+                    });
                 };
 
                 var getModelKey = function () {
@@ -124,7 +129,7 @@ angular.module('schemaForm').config(
             }],
         };
     })
-    .directive("toggleModel", function () {
+    .directive("toggleModel", function ($timeout) {
         // some how we get this to work ...
         return {
             require: 'ngModel',
@@ -153,6 +158,11 @@ angular.module('schemaForm').config(
                                 $scope.$parent.form.select_models.push($item);
                             }
                         });
+                    });
+
+                    $timeout(function () {
+                        $scope.$parent.ngModel.$setPristine();
+                        $scope.$parent.ngModel.$$parentForm.$setPristine();
                     });
                 };
 
