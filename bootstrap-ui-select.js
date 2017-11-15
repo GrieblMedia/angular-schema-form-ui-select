@@ -87,12 +87,12 @@ angular.module('schemaForm').config(
                         if (!exists && doResetIfNotFound) {
                             $scope.$parent.select_model.selected = undefined;
                         }
-                    }
 
-                    $timeout(function () {
-                        $scope.$parent.ngModel ? $scope.$parent.ngModel.$setPristine() : false;
-                        $scope.$parent.ngModel && $scope.$parent.ngModel.$$parentForm ? $scope.$parent.ngModel.$$parentForm.$setPristine() : false;
-                    });
+                        $timeout(function () {
+                            $scope.$parent.ngModel ? $scope.$parent.ngModel.$setPristine() : false;
+                            $scope.$parent.ngModel && $scope.$parent.ngModel.$$parentForm ? $scope.$parent.ngModel.$$parentForm.$setPristine() : false;
+                        });
+                    }
                 };
 
                 var getModelKey = function () {
@@ -160,10 +160,14 @@ angular.module('schemaForm').config(
                         });
                     });
 
-                    $timeout(function () {
-                        $scope.$parent.ngModel ? $scope.$parent.ngModel.$setPristine() : false;
-                        $scope.$parent.ngModel && $scope.$parent.ngModel.$$parentForm ? $scope.$parent.ngModel.$$parentForm.$setPristine() : false;
-                    });
+
+
+                    if (angular.isDefined(selectedItems) && selectedItems.length) {
+                        $timeout(function () {
+                            $scope.$parent.ngModel ? $scope.$parent.ngModel.$setPristine() : false;
+                            $scope.$parent.ngModel && $scope.$parent.ngModel.$$parentForm ? $scope.$parent.ngModel.$$parentForm.$setPristine() : false;
+                        });
+                    }
                 };
 
                 var getModelKey = function () {
