@@ -90,8 +90,8 @@ angular.module('schemaForm').config(
                     }
 
                     $timeout(function () {
-                        $scope.$parent.ngModel.$setPristine();
-                        $scope.$parent.ngModel.$$parentForm.$setPristine();
+                        $scope.$parent.ngModel ? $scope.$parent.ngModel.$setPristine() : false;
+                        $scope.$parent.ngModel && $scope.$parent.ngModel.$$parentForm ? $scope.$parent.ngModel.$$parentForm.$setPristine() : false;
                     });
                 };
 
@@ -161,8 +161,8 @@ angular.module('schemaForm').config(
                     });
 
                     $timeout(function () {
-                        $scope.$parent.ngModel.$setPristine();
-                        $scope.$parent.ngModel.$$parentForm.$setPristine();
+                        $scope.$parent.ngModel ? $scope.$parent.ngModel.$setPristine() : false;
+                        $scope.$parent.ngModel && $scope.$parent.ngModel.$$parentForm ? $scope.$parent.ngModel.$$parentForm.$setPristine() : false;
                     });
                 };
 
