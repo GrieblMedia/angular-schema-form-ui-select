@@ -120,7 +120,7 @@ angular.module('schemaForm').config(
                 // select items changed
                 $scope.$parent.$watch('form.schema.items', function () {
                     if ($scope.$parent.model && $scope.$parent.model[getModelKey()]) {
-                        doSelect($scope.$parent.model[getModelKey()], true);
+                        doSelect($scope.$parent.model[getModelKey()], false);
                     }
                 }, true);
 
@@ -146,17 +146,24 @@ angular.module('schemaForm').config(
                     sfSelect($scope.$parent.form.key, $scope.$parent.model, list);
                 }
 
-                var doSelect = function (selectedItems) {
+                var doSelect = function (selectedItems, doResetIfNotFound) {
 
-                    // clean selected options
-                    while ($scope.$parent.form.select_models.length) {
-                        $scope.$parent.form.select_models.pop();
+                    if (doResetIfNotFound) {
+                        // clean selected options
+                        while ($scope.$parent.form.select_models.length) {
+                            $scope.$parent.form.select_models.pop();
+                        }
                     }
 
                     // reselect values
                     angular.forEach($scope.$parent.form.schema.items, function ($item) {
                         angular.forEach(selectedItems, function (selectedItem) {
-                            if ($item.value == selectedItem) {
+
+                            var existing = $scope.$parent.form.select_models.filter(function (existing) {
+                                return existing.value == selectedItem;
+                            });
+
+                            if (existing.length === 0 && $item.value == selectedItem) {
                                 $scope.$parent.form.select_models.push($item);
                             }
                         });
