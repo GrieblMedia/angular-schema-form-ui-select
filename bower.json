@@ -5,7 +5,7 @@
     "angular-underscore.js",
     "bootstrap-ui-select.min.js"
   ],
-  "version": "0.1.22",
+  "version": "0.1.23",
   "authors": [
     "Cheng Zhu<cheng@aqmin.com>",
     "Steve Hu <stevehu@gmail.com>"
