@@ -192,7 +192,7 @@ angular.module('schemaForm').config(
 
                 // model value changed in outside
                 $scope.$parent.$watch('model.$$value$$'.replace('$$value$$', getModelKey()), function (val) {
-                    doSelect(val);
+                    doSelect(val, true);
                 });
 
                 // select items changed
