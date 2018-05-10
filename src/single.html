@@ -10,7 +10,7 @@
         <div ng-if="item.description">
           <span ng-bind-html="'<small>' + (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS'))+ '</small>'"></span></div>
         </ui-select-choices>
-        <ui-select-no-choice ng-hide="$select.refreshing">{{'common.labels.select_no_items' | translate}}</ui-select-no-choice>
+        <ui-select-no-choice ng-hide="$select.refreshing || (form.schema.items && form.schema.items.length > 0)">{{'common.labels.select_no_items' | translate}}</ui-select-no-choice>
       </ui-select>
       <ui-select ng-controller="UiSelectController"  ng-model="select_model.selected" ng-if="(form.options.tagging||false) && !(form.options.groupBy || false)" tagging="form.options.tagging||false" tagging-label="form.options.taggingLabel" tagging-tokens="form.options.taggingTokens"
         theme="bootstrap" ng-disabled="form.disabled" on-select="$$value$$=$item.value" class="{{form.options.uiClass}}" append-to-body="true">
@@ -23,7 +23,7 @@
           <span  ng-bind-html="'<small>' + (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) + '</small>'"></span>
         </div>
       </ui-select-choices>
-      <ui-select-no-choice ng-hide="$select.refreshing">{{'common.labels.select_no_items' | translate}}</ui-select-no-choice>
+      <ui-select-no-choice ng-hide="$select.refreshing || (form.schema.items && form.schema.items.length > 0)">{{'common.labels.select_no_items' | translate}}</ui-select-no-choice>
       </ui-select>
 
         <!--repeat code because tagging does not display properly under group by but is still useful -->
@@ -38,7 +38,7 @@
           <span  ng-bind-html="'<small>' + (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) + '</small>'"></span>
         </div>
       </ui-select-choices>
-      <ui-select-no-choice ng-hide="$select.refreshing">{{'common.labels.select_no_items' | translate}}</ui-select-no-choice>
+      <ui-select-no-choice ng-hide="$select.refreshing || (form.schema.items && form.schema.items.length > 0)">{{'common.labels.select_no_items' | translate}}</ui-select-no-choice>
       </ui-select>
       <span class="input-group-btn">
           <button ng-click="$$value$$ = undefined" class="btn btn-default" type="button">
