@@ -10,6 +10,7 @@
           <span ng-bind-html="'<small>' + (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS'))+ '</small>'"></span>
         </div>
     </ui-select-choices>
+      <ui-select-no-choice ng-hide="$select.refreshing">{{'common.labels.select_no_items' | translate}}</ui-select-no-choice>
     </ui-select>
     <ui-select ng-controller="UiSelectController" multiple ng-if="(form.options.tagging||false) && !(form.options.groupBy || false)" tagging="form.options.tagging||false" tagging-label="form.options.taggingLabel" tagging-tokens="form.options.taggingTokens" sortable-options="{{form.sortableOptions}}" ng-model="form.select_models" theme="bootstrap" on-select="$$value$$.push($item.value)" on-remove="$$value$$.splice($$value$$.indexOf($item.value), 1)" class="{{form.options.uiClass}}">
       <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">{{$item.label}}&nbsp;<small>{{($item.isTag===true ?  form.options.taggingLabel : '')}}</small></ui-select-match>
@@ -21,6 +22,7 @@
         <span ng-bind-html="'<small>' + (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) + '</small>'"></span>
       </div>
     </ui-select-choices>
+      <ui-select-no-choice ng-hide="$select.refreshing">{{'common.labels.select_no_items' | translate}}</ui-select-no-choice>
       <!--repeat code because tagging does not display properly under group by but is still useful -->
     </ui-select>
 
@@ -34,7 +36,7 @@
         <span ng-bind-html="'<small>' + (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) + '</small>'"></span>
       </div>
     </ui-select-choices>
-
+      <ui-select-no-choice ng-hide="$select.refreshing">{{'common.labels.select_no_items' | translate}}</ui-select-no-choice>
     </ui-select>
     <input name="{{form.key.slice(-1)[0]}}" toggle-model type="hidden" ng-model="insideModel" sf-changed="form" schema-validate="form" />
     <span ng-if="form.feedback !== false"
