@@ -1,7 +1,7 @@
 <div class="form-group" ng-class="{'has-error': hasError(), 'has-success': hasSuccess(), 'has-feedback': form.feedback !== false}" ng-init="form.select_models=(form.schema.items| whereMulti : 'value' : ($$value$$||[]))">
   <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
   <div class="form-group" ng-controller="UiSelectController">
-    <ui-select multiple sortable-options="{{form.sortableOptions}}" ng-if="!(form.options.tagging||false)" ng-model="form.select_models" theme="bootstrap" on-select="$$value$$.push($item.value)" on-remove="$$value$$.splice($$value$$.indexOf($item.value), 1)" class="{{form.options.uiClass}}">
+    <ui-select multiple sortable-options="{{form.sortableOptions}}" ng-if="!(form.options.tagging||false)" ng-model="form.select_models" theme="bootstrap" on-select="$$value$$.push($item.value)" on-remove="$$value$$.splice($$value$$.indexOf($item.value), 1)" class="{{form.options.uiClass}}" append-to-body="true">
       <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">{{$item.label}}</ui-select-match>
       <ui-select-choices class="ui-select-choices" refresh="fetchResult(form.schema, form.options, $select.search)"
          refresh-delay="form.options.refreshDelay" group-by="form.options.groupBy"  repeat="item in form.schema.items | propsFilter: {label: $select.search, description: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
@@ -12,7 +12,7 @@
     </ui-select-choices>
       <ui-select-no-choice ng-hide="$select.refreshing || (form.schema.items && form.schema.items.length > 0)">{{'common.labels.select_no_items' | translate}}</ui-select-no-choice>
     </ui-select>
-    <ui-select ng-controller="UiSelectController" multiple ng-if="(form.options.tagging||false) && !(form.options.groupBy || false)" tagging="form.options.tagging||false" tagging-label="form.options.taggingLabel" tagging-tokens="form.options.taggingTokens" sortable-options="{{form.sortableOptions}}" ng-model="form.select_models" theme="bootstrap" on-select="$$value$$.push($item.value)" on-remove="$$value$$.splice($$value$$.indexOf($item.value), 1)" class="{{form.options.uiClass}}">
+    <ui-select ng-controller="UiSelectController" multiple ng-if="(form.options.tagging||false) && !(form.options.groupBy || false)" tagging="form.options.tagging||false" tagging-label="form.options.taggingLabel" tagging-tokens="form.options.taggingTokens" sortable-options="{{form.sortableOptions}}" ng-model="form.select_models" theme="bootstrap" on-select="$$value$$.push($item.value)" on-remove="$$value$$.splice($$value$$.indexOf($item.value), 1)" class="{{form.options.uiClass}}" append-to-body="true">
       <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">{{$item.label}}&nbsp;<small>{{($item.isTag===true ?  form.options.taggingLabel : '')}}</small></ui-select-match>
       <ui-select-choices class="ui-select-choices" refresh-delay="form.options.refreshDelay" refresh="fetchResult(form.schema, form.options, $select.search)"
          refresh-delay="form.options.refreshDelay" repeat="item in form.schema.items | propsFilter: {label: $select.search, description: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
@@ -26,7 +26,7 @@
       <!--repeat code because tagging does not display properly under group by but is still useful -->
     </ui-select>
 
-    <ui-select ng-controller="UiSelectController" multiple ng-if="(form.options.tagging||false) && (form.options.groupBy || false)" tagging="form.options.tagging||false" tagging-label="form.options.taggingLabel" tagging-tokens="form.options.taggingTokens" sortable-options="{{form.sortableOptions}}" ng-model="form.select_models" theme="bootstrap" on-select="$$value$$.push($item.value)" on-remove="$$value$$.splice($$value$$.indexOf($item.value), 1)" class="{{form.options.uiClass}}">
+    <ui-select ng-controller="UiSelectController" multiple ng-if="(form.options.tagging||false) && (form.options.groupBy || false)" tagging="form.options.tagging||false" tagging-label="form.options.taggingLabel" tagging-tokens="form.options.taggingTokens" sortable-options="{{form.sortableOptions}}" ng-model="form.select_models" theme="bootstrap" on-select="$$value$$.push($item.value)" on-remove="$$value$$.splice($$value$$.indexOf($item.value), 1)" class="{{form.options.uiClass}}" append-to-body="true">
       <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">{{$item.label}}&nbsp;<small>{{($item.isTag===true ?  form.options.taggingLabel : '')}}</small></ui-select-match>
       <ui-select-choices class="ui-select-choices" group-by="form.options.groupBy" refresh-delay="form.options.refreshDelay" refresh="fetchResult(form.schema, form.options, $select.search)"
          refresh-delay="form.options.refreshDelay" repeat="item in form.schema.items | propsFilter: {label: $select.search, description: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
