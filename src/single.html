@@ -3,7 +3,7 @@
   <div class="form-group" ng-init="select_model.selected=select_models[0]">
     <div class="input-group">
       <ui-select ng-model="select_model.selected" ng-controller="UiSelectController"  ng-if="!(form.options.tagging||false)" theme="bootstrap" ng-disabled="form.disabled" on-select="$$value$$=$item.value" class="{{form.options.uiClass}}" append-to-body="true">
-        <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">{{select_model.selected.label}}</ui-select-match>
+        <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}"><div ng-bind-html="select_model.selected.label"></div></ui-select-match>
         <ui-select-choices class="ui-select-choices" refresh="fetchResult(form.schema, form.options, $select.search)"
                refresh-delay="form.options.refreshDelay" group-by="form.options.groupBy"  repeat="item in form.schema.items | propsFilter: {label: $select.search, description: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
                   <div ng-bind-html="item.label | highlight: $select.search"></div>
@@ -14,7 +14,7 @@
       </ui-select>
       <ui-select ng-controller="UiSelectController"  ng-model="select_model.selected" ng-if="(form.options.tagging||false) && !(form.options.groupBy || false)" tagging="form.options.tagging||false" tagging-label="form.options.taggingLabel" tagging-tokens="form.options.taggingTokens"
         theme="bootstrap" ng-disabled="form.disabled" on-select="$$value$$=$item.value" class="{{form.options.uiClass}}" append-to-body="true">
-        <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">{{select_model.selected.label}}&nbsp;<small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : '')}}</small></ui-select-match>
+        <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}"><div ng-bind-html="select_model.selected.label"></div>&nbsp;<small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : '')}}</small></ui-select-match>
         <!--repeat code because tagging does not display properly under group by but is still useful -->
         <ui-select-choices class="ui-select-choices" refresh="form.options.refreshMethod(form.schema, $select.search)"
                refresh-delay="form.options.refreshDelay" repeat="item in form.schema.items | propsFilter: {label: $select.search, description: (form.options.searchDescription===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
@@ -30,7 +30,7 @@
 
       <ui-select ng-controller="UiSelectController"  ng-model="select_model.selected" ng-if="(form.options.tagging||false) && (form.options.groupBy || false)"  tagging="form.options.tagging||false" tagging-label="form.options.taggingLabel" tagging-tokens="form.options.taggingTokens"
         theme="bootstrap" ng-disabled="form.disabled" on-select="$$value$$=$item.value" class="{{form.options.uiClass}}" append-to-body="true">
-        <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">{{select_model.selected.label}}&nbsp;<small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : '')}}</small></ui-select-match>
+        <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}"><div ng-bind-html="select_model.selected.label"></div>&nbsp;<small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : '')}}</small></ui-select-match>
         <ui-select-choices class="ui-select-choices" group-by="form.options.groupBy" refresh="form.options.refreshMethod(form.schema, $select.search)"
                refresh-delay="form.options.refreshDelay" repeat="item in form.schema.items | propsFilter: {label: $select.search, description: (form.options.searchDescription===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
           <div ng-if="item.isTag" ng-bind-html="'<div>' + (item.label   | highlight: $select.search) + ' ' + form.options.taggingLabel + '</div><div class=&quot;divider&quot;></div>'"></div><div ng-if="!item.isTag" ng-bind-html="item.label + item.isTag| highlight: $select.search"></div>
