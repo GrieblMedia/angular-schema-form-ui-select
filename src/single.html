@@ -3,10 +3,10 @@
   <div class="form-group" ng-init="select_model.selected=select_models[0]">
     <div class="input-group">
       <ui-select ng-model="select_model.selected" ng-controller="UiSelectController"  ng-if="!(form.options.tagging||false)" theme="bootstrap" ng-disabled="form.disabled" on-select="$$value$$=$item.value" class="{{form.options.uiClass}}" append-to-body="true">
-        <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}"><div ng-bind-html="select_model.selected.label"></div></ui-select-match>
+        <ui-select-match class="ui-select-match" placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}"><div ng-bind-html="(select_model.selected.prefix ? select_model.selected.prefix : '') + select_model.selected.label"></div></ui-select-match>
         <ui-select-choices class="ui-select-choices" refresh="fetchResult(form.schema, form.options, $select.search)"
                refresh-delay="form.options.refreshDelay" group-by="form.options.groupBy"  repeat="item in form.schema.items | propsFilter: {label: $select.search, description: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
-                  <div ng-bind-html="item.label | highlight: $select.search"></div>
+                  <div ng-bind-html="(item.prefix ? '<span>' + item.prefix + ' </span>' : '' ) + (item.label | highlight: $select.search)"></div>
         <div ng-if="item.description">
           <span ng-bind-html="'<small>' + (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS'))+ '</small>'"></span></div>
         </ui-select-choices>
