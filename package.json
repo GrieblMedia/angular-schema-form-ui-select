@@ -1,6 +1,6 @@
 {
   "name": "angular-schema-form-ui-select",
-  "version": "0.1.27",
+  "version": "0.1.28",
   "description": "ui-select add-on for schema form",
   "scripts": {
     "test": "rm -fr coverage && ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS karma.conf.js"
