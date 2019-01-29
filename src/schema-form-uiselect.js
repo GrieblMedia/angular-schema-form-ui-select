@@ -116,8 +116,26 @@ angular.module('schemaForm').config(
                 });
 
                 // select items changed
-                $scope.$parent.$watch('form.schema.items', function () {
+                $scope.$parent.$watch('form.schema.items', function (newVal, oldVal) {
                     if ($scope.$parent.model && $scope.$parent.model[getModelKey()]) {
+                        var val = $scope.$parent.model[getModelKey()];
+                        var filter = function (el) {
+                            return el.value === val;
+                        };
+
+                        if (filter) {
+                            var exists = newVal.filter(filter);
+                            if (exists.length === 0 && oldVal) {
+                                var toAdd = oldVal.filter(filter);
+                                if (toAdd.length > 0) {
+                                    newVal.unshift(toAdd[0])
+                                }
+                            }
+
+                            var selectedIndex = newVal.map(function (e) { return e.value; }).indexOf(val);
+                            $scope.$emit('ui.select.selectItem', selectedIndex);
+                        }
+
                         doSelect($scope.$parent.model[getModelKey()], false);
                     }
                 }, true);
@@ -125,6 +143,10 @@ angular.module('schemaForm').config(
                 $scope.$parent.$watch('select_model.selected', function () {
                     $scope.$parent.insideModel = $scope.$parent.select_model.selected ? $scope.$parent.select_model.selected.value : undefined;
                     $scope.$parent.ngModel.$setViewValue($scope.$parent.select_model.selected ? $scope.$parent.select_model.selected.value : undefined);
+                });
+
+                $scope.$on('$destroy', function () {
+                    $scope.$parent.form.schema.items = [];
                 });
             }],
         };
@@ -213,6 +235,11 @@ angular.module('schemaForm').config(
                         $scope.$parent.ngModel.$setViewValue($scope.$parent.form.select_models);
                     }
                 }, true);
+
+
+                $scope.$on('$destroy', function () {
+                    $scope.$parent.form.schema.items = [];
+                });
             }],
         };
     })
