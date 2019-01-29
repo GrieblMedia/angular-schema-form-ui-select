@@ -130,7 +130,7 @@ angular.module('schemaForm').config(
                             if (exists.length === 0 && oldVal) {
                                 var toAdd = oldVal.filter(filter);
                                 if (toAdd.length > 0) {
-                                    newVal.unshift(toAdd[0])
+                                    newVal.splice(oldVal.indexOf(toAdd[0]), 0, toAdd[0]);
                                 }
                             }
 
