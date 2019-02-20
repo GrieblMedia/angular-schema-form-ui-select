@@ -146,7 +146,9 @@ angular.module('schemaForm').config(
                 });
 
                 $scope.$on('$destroy', function () {
-                    $scope.$parent.form.schema.items = [];
+                    if ($scope.$parent.form.options &&$scope.$parent.form.options.async && $scope.$parent.form.schema.items) {
+                        $scope.$parent.form.schema.items = [];
+                    }
                 });
             }],
         };
@@ -238,7 +240,9 @@ angular.module('schemaForm').config(
 
 
                 $scope.$on('$destroy', function () {
-                    $scope.$parent.form.schema.items = [];
+                    if ($scope.$parent.form.options &&$scope.$parent.form.options.async && $scope.$parent.form.schema.items) {
+                        $scope.$parent.form.schema.items = [];
+                    }
                 });
             }],
         };
